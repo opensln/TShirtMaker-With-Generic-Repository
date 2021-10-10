@@ -1,0 +1,99 @@
+﻿@model CoreTShirtStore.Models.TShirt
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<style>
+    .container {
+        max-width: 100%;
+    }
+</style>
+
+<div class="containerx">
+    <h1 class="PageTitle">Design Your T-Shirt</h1>
+    <div class="tshirtHolder">
+        <div class="tshirtTemplate">
+            <div class="tshirtText">Hey There!</div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row tShirtFormRow">
+    <div class="col-md-4x tShirtInput">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <textarea asp-for="message" type="text" class="tshirtCreatorInput" rows="6"></textarea>
+                <span asp-validation-for="message" class="text-danger"></span>
+            </div>
+
+                <div class="form-group">
+                    <label asp-for="Color" class="control-label"></label>
+                    <select asp-for="Color" class="colorSelector form-control">
+                        <option value="red">Red</option>
+                        <option value="grey">Grey</option>
+                        <option value="blue">Blue</option>
+                        <option value="darkblue">Dark Blue</option>
+                        <option value="green">Green</option>
+                        <option value="yellow">yellow</option>
+                        <option value="black">Black</option>
+                    </select>
+                    @*<input asp-for="Color" class="form-control" />*@
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Size" class="control-label"></label>
+                    <select asp-for="@Model.Size" asp-items="Html.GetEnumSelectList<Size>()" class="form-control"></select>
+                    @*<select asp-for="Size" class="colorSelector form-control">
+                    <option value="X-Small">X-Small</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="X-Large">X-Large</option>
+                </select>*@
+                    @*<input asp-for="Size" class="form-control" />*@
+                    <span asp-validation-for="Size" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="isTightFit" /> @Html.DisplayNameFor(model => model.isTightFit)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary thirtSubmitBtn" />
+                </div>
+        </form>
+    </div>
+</div>
+
+<div class="backBtnHolder">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    let colorSelector = document.querySelector(".colorSelector");
+    let chosenColor = colorSelector.value;
+
+    colorSelector.onchange = function (e) {
+        document.querySelector(".tshirtHolder").style.backgroundColor =
+            e.target.value;
+        console.log(e.target.value);
+    };
+
+    let TshirtCreatorInput = document.querySelector(".tshirtCreatorInput");
+
+    TshirtCreatorInput.onkeyup = function () {
+        document.querySelector(".tshirtText").innerText = TshirtCreatorInput.value;
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

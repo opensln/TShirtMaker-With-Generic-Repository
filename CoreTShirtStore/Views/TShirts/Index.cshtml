@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CoreTShirtStore.Models.TShirt>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isTightFit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.message)
+            </th>
+            <th>
+                Options
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isTightFit)
+            </td>
+            <td>
+                <div class="tshirtHolder" style="background-color:  @Html.DisplayFor(modelItem => item.Color)">
+                    <div class="tshirtTemplate tshirtTemplate-list">
+                        <textarea class="tshirtText" rows="5" readonly>@Html.DisplayFor(modelItem => item.message)</textarea>
+                    </div>
+                </div>
+            
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
